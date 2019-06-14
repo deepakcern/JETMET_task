@@ -23,6 +23,16 @@ hltGetConfiguration /online/collisions/2018/2e34/v3.6/HLT/V4 --path HLTriggerFir
  removed `process.HLTHBHENoiseCleanerSequence` from the path [HLT_PFMETTypeOne200_HBHE_BeamHaloCleaned_v9, HLT_PFMET120_PFMHT120_IDTight_v20]. Changed input in `process.hltMetClean`
  
  
+ ## Adding EDAnalyser in the framework
+ 
+ ```
+cd HLTrigger/Configuration
+mkdir plugins
+ ```
+ 
+ Copy `hltAnalyzer.cc` and `Build.xml` files inside the `plugins` directory.
+ Copy `hltJetMETNtuple_new_cfi.py` file inside `python` directory
+ 
  ## Making ntuples
  
  Added following line in the `hlt_path_withFilter.py` file
