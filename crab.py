@@ -9,7 +9,7 @@ config.General.transferLogs = True
 config.General.requestName = 'EGamama'
 
 config.JobType.pluginName = 'Analysis'
-config.JobType.psetName = 'hlt_data_17052019.py'
+config.JobType.psetName = 'hlt_path_withFilter.py'
 #config.JobType.maxMemoryMB = 2400
 config.JobType.numCores = 4
 config.JobType.outputFiles = ['hltJetMetNtuple.root']
