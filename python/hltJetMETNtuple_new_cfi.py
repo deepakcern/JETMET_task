@@ -104,10 +104,10 @@ def configureJetMetNtuple(process):
                                              #eleMvaSpring16WPMediumMap = cms.InputTag("egmGsfElectronIDs:mvaEleID-Spring16-GeneralPurpose-V1-wp90"),
                                              #eleMvaSpring16WPTightMap = cms.InputTag("egmGsfElectronIDs:mvaEleID-Spring16-GeneralPurpose-V1-wp80"),
                                              #mvaSpring16ValuesMap = cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Spring16GeneralPurposeV1Values"),
-                                             mvaSpring16CategoriesMap = cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Spring16GeneralPurposeV1Categories"),
-                                             eleSummer16VetoIdMap = cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-veto"),
-                                             eleSummer16LooseIdMap = cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-loose"),
-                                             eleSummer16MediumIdMap = cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-medium"),
+                                             #mvaSpring16CategoriesMap = cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Spring16GeneralPurposeV1Categories"),
+                                             #eleSummer16VetoIdMap = cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-veto"),
+                                             #eleSummer16LooseIdMap = cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-loose"),
+                                             #eleSummer16MediumIdMap = cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-medium"),
                                             # eleSummer16TightIdMap = cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-tight"),
                                              hltprocess = cms.InputTag("TriggerResults::HLT"),#changed HLT->TEST
                                              hltprocess_rerun = cms.InputTag("TriggerResults::TEST"),
@@ -115,18 +115,18 @@ def configureJetMetNtuple(process):
 					     caloMetRaw=cms.InputTag("hltMet","","TEST"),   #hltMet,hltPFMETTypeOne,hltPFMETProducer
 					     pfMetRaw=cms.InputTag("hltPFMETProducer","","TEST"),
                                              triggerLabel=cms.InputTag("TriggerResults","","TEST"),
-                                             triggerPaths = cms.untracked.vstring('HLT_PFMET200_NotCleaned_v',           
-                                                                                  'HLT_PFMET200_HBHECleaned_v',
-                                                                                  'HLT_PFMET250_HBHECleaned_v',
-                                                                                  'HLT_PFMET300_HBHECleaned_v',
-                                                                                  'HLT_PFMET200_HBHE_BeamHaloCleaned_v',
-                                                                                  'HLT_PFMETTypeOne200_HBHE_BeamHaloCleaned_v', 
-                                                                                  'HLT_PFMET110_PFMHT110_IDTight_v', 
+                                             #triggerPaths = cms.untracked.vstring('HLT_PFMET200_NotCleaned_v',           
+                                             #                                     'HLT_PFMET200_HBHECleaned_v',
+                                              #                                    'HLT_PFMET250_HBHECleaned_v',
+                                               #                                   'HLT_PFMET300_HBHECleaned_v',
+                                               #                                   'HLT_PFMET200_HBHE_BeamHaloCleaned_v',
+                                               #                                   'HLT_PFMETTypeOne200_HBHE_BeamHaloCleaned_v', 
+                                                #                                  'HLT_PFMET110_PFMHT110_IDTight_v', 
                       # 'HLT_CaloMET80_NotCleaned_v',
-                                                                                  'HLT_IsoMu20_v',
-                                                                                  'HLT_IsoMu24_eta2p1_v',
-                                                                                  'HLT_IsoMu24_v',
-                                                                                  'HLT_CaloJet500_NoJetID_v12',
+                                                  #                                'HLT_IsoMu20_v',
+                                                  #                                'HLT_IsoMu24_eta2p1_v',
+                                                   #                               'HLT_IsoMu24_v',
+                                                   #                               'HLT_CaloJet500_NoJetID_v12',
                                                                                   # 'HLT_CaloMET90_NotCleaned_v',
                                                                                   # 'HLT_CaloMET100_NotCleaned_v',
                                                                                   # 'HLT_CaloMET110_NotCleaned_v',
@@ -144,7 +144,7 @@ def configureJetMetNtuple(process):
                                                                                   # 'HLT_Ele27_eta2p1_WPTight_Gsf_v',
                                                                                   # 'HLT_Ele30_WPTight_Gsf_v',
                                                                                   # 'HLT_Ele30_eta2p1_WPTight_Gsf_v',
-                                                                                  'HLT_Ele32_WPTight_Gsf_v',
+                                                      #                            'HLT_Ele32_WPTight_Gsf_v',
                                                                                   # 'HLT_Ele32_eta2p1_WPTight_Gsf_v',
                                                                                   # 'HLT_PFJet40_v',
                                                                                   # 'HLT_PFJet60_v',
@@ -154,9 +154,9 @@ def configureJetMetNtuple(process):
                                                                                   # 'HLT_PFJet260_v',
                                                                                   # 'HLT_PFJet320_v',
                                                                                   # 'HLT_PFJet400_v',
-                                                                                  'HLT_PFJet450_v',
-                                                                                  'HLT_PFJet500_v',
-                                                                                  'HLT_PFJet550_v'
+                                                       #                           'HLT_PFJet450_v',
+                                                        #                          'HLT_PFJet500_v',
+                                                       #                           'HLT_PFJet550_v'
                                                                                   # 'HLT_PFJetFwd40_v', 
                                                                                   # 'HLT_PFJetFwd60_v',
                                                                                   # 'HLT_PFJetFwd80_v',
@@ -168,7 +168,7 @@ def configureJetMetNtuple(process):
                                                                                   # 'HLT_PFJetFwd450_v',
                                                                                   # 'HLT_PFJetFwd500_v'
 
-                                                                                  )
+                                                     #                             )
 
 
                       
