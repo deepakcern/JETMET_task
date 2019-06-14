@@ -31,7 +31,12 @@ mkdir plugins
  ```
  
  Copy `hltAnalyzer.cc` and `Build.xml` files inside the `plugins` directory.
- Copy `hltJetMETNtuple_new_cfi.py` file inside `python` directory
+ Copy `hltJetMETNtuple_new_cfi.py` file inside `python` directory.
+ And compile files agian.
+ ```
+ cd src/
+ scram b -j 8
+ ```
  
  ## Making ntuples
  
