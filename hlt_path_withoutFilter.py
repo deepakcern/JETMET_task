@@ -1,4 +1,4 @@
-# hltGetConfiguration /online/collisions/2018/2e34/v3.6/HLT/V4 --path HLTriggerFirstPath,HLT_PFMET120_PFMHT120_IDTight_v20,HLT_PFMETTypeOne200_HBHE_BeamHaloCleaned_v9,HLTriggerFinalPath,HLTAnalyzerEndpath --input root://cms-xrd-global.cern.ch//store/data/Run2018C/SingleMuon/RAW/v1/000/320/065/00000/FA37880C-078E-E811-BF6E-02163E015C96.root --full --offline --data --prescale none --output none --process TEST --globaltag auto:run2_hlt_GRun --setup /dev/CMSSW_10_1_0/GRun
+# hltGetConfiguration /online/collisions/2018/2e34/v3.6/HLT/V4 --path HLTriggerFirstPath,HLT_PFMET120_PFMHT120_IDTight_v20,HLT_PFMETTypeOne200_HBHE_BeamHaloCleaned_v9,HLTriggerFinalPath,HLTAnalyzerEndpath --input root://cms-xrd-global.cern.ch//store/data/Run2018C/SingleMuon/RAW/v1/000/320/065/00000/FA37880C-078E-E811-BF6E-02163E015C96.root --full --offline --data --prescale none --output none --process TEST --globaltag 101X_dataRun2_HLT_v7 --setup /dev/CMSSW_10_1_0/GRun
 
 # /online/collisions/2018/2e34/v3.6/HLT/V4 (CMSSW_10_1_10_HLT1)
 
@@ -11595,8 +11595,8 @@ process.HLTEndSequence = cms.Sequence( process.hltBoolEnd )
 process.HLTBeamHaloCleanerSequence = cms.Sequence( process.hltCSCHaloData + process.hltEcalHaloData + process.hltHcalHaloData + process.hltGlobalHaloData + process.hltCaloRecHitsBeamHaloCleaned + process.hltTowerMakerForAllBeamHaloCleaned )
 
 process.HLTriggerFirstPath = cms.Path( process.hltGetConditions + process.hltGetRaw + process.hltBoolFalse )
-process.HLT_PFMET120_PFMHT120_IDTight_v20 = cms.Path( process.HLTBeginSequence + process.hltL1sAllETMHFSeeds + process.hltPrePFMET120PFMHT120IDTight + process.HLTRecoMETSequence + process.hltMET90 + process.HLTHBHENoiseCleanerSequence + process.hltMetClean + process.hltMETClean80 + process.HLTAK4CaloJetsSequence + process.hltMht + process.hltMHT90 + process.HLTAK4PFJetsSequence + process.hltPFMHTTightID + process.hltPFMHTTightID120 + process.hltPFMETProducer + process.hltPFMET120 + process.HLTEndSequence )
-process.HLT_PFMETTypeOne200_HBHE_BeamHaloCleaned_v9 = cms.Path( process.HLTBeginSequence + process.hltL1sAllETMHFSeeds + process.hltPrePFMETTypeOne200HBHEBeamHaloCleaned + process.HLTRecoMETSequence + process.hltMET90 + process.HLTHBHENoiseCleanerSequence + process.hltMetClean + process.hltMETClean80 + process.HLTAK4PFJetsSequence + process.hltPFMETProducer + process.hltcorrPFMETTypeOne + process.hltPFMETTypeOne + process.hltPFMETTypeOne200 + process.HLTBeamHaloCleanerSequence + process.hltMetCleanBH + process.hltMETCleanBH80 + process.HLTEndSequence )
+process.HLT_PFMET120_PFMHT120_IDTight_v20 = cms.Path( process.HLTBeginSequence + process.hltL1sAllETMHFSeeds + process.hltPrePFMET120PFMHT120IDTight + process.HLTRecoMETSequence + process.hltMET90 + process.hltMetClean + process.hltMETClean80 + process.HLTAK4CaloJetsSequence + process.hltMht + process.hltMHT90 + process.HLTAK4PFJetsSequence + process.hltPFMHTTightID + process.hltPFMHTTightID120 + process.hltPFMETProducer + process.hltPFMET120 + process.HLTEndSequence )
+process.HLT_PFMETTypeOne200_HBHE_BeamHaloCleaned_v9 = cms.Path( process.HLTBeginSequence + process.hltL1sAllETMHFSeeds + process.hltPrePFMETTypeOne200HBHEBeamHaloCleaned + process.HLTRecoMETSequence + process.hltMET90 + process.hltMetClean + process.hltMETClean80 + process.HLTAK4PFJetsSequence + process.hltPFMETProducer + process.hltcorrPFMETTypeOne + process.hltPFMETTypeOne + process.hltPFMETTypeOne200 + process.HLTBeamHaloCleanerSequence + process.hltMetCleanBH + process.hltMETCleanBH80 + process.HLTEndSequence )
 process.HLTriggerFinalPath = cms.Path( process.hltGtStage2Digis + process.hltScalersRawToDigi + process.hltFEDSelector + process.hltTriggerSummaryAOD + process.hltTriggerSummaryRAW + process.hltBoolFalse )
 
 
@@ -11623,7 +11623,7 @@ process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32( 100 )
 )
 
-
+'''
 # add a single "keep *" output
 process.hltOutputFull = cms.OutputModule( "PoolOutputModule",
     fileName = cms.untracked.string( "hltoutput.root" ),
@@ -11633,8 +11633,20 @@ process.hltOutputFull = cms.OutputModule( "PoolOutputModule",
         filterName = cms.untracked.string( '' )
     ),
     outputCommands = cms.untracked.vstring( 'keep *' )
+#    outputCommands = cms.untracked.vstring( 'drop *',#'keep *_*_*_TEST',
+#        'keep edmTriggerResults_*_*_TEST',
+#        'keep triggerTriggerEvent_*_*_TEST',
+        #'keep *_hltMuons_*_*',
+        #'keep *_hltAK4PFJets_*_*',
+        #'keep *_TriggerResults_*_*',
+#        'keep *_hltMet_*_TEST',
+#        'keep *_hltPFMETProducer_*_TEST'
+#    )   
+
+
 )
 process.FullOutput = cms.EndPath( process.hltOutputFull )
+'''
 
 # enable TrigReport, TimeReport and MultiThreading
 process.options = cms.untracked.PSet(
@@ -11647,7 +11659,7 @@ process.options = cms.untracked.PSet(
 # override the GlobalTag, connection string and pfnPrefix
 if 'GlobalTag' in process.__dict__:
     from Configuration.AlCa.GlobalTag import GlobalTag as customiseGlobalTag
-    process.GlobalTag = customiseGlobalTag(process.GlobalTag, globaltag = 'auto:run2_hlt_GRun')
+    process.GlobalTag = customiseGlobalTag(process.GlobalTag, globaltag = '101X_dataRun2_HLT_v7')
 
 if 'MessageLogger' in process.__dict__:
     process.MessageLogger.categories.append('TriggerSummaryProducerAOD')
@@ -11675,8 +11687,8 @@ _customInfo['globalTags'][False] = "auto:run2_mc_GRun"
 _customInfo['inputFiles']={}
 _customInfo['inputFiles'][True]  = "file:RelVal_Raw_GRun_DATA.root"
 _customInfo['inputFiles'][False] = "file:RelVal_Raw_GRun_MC.root"
-_customInfo['maxEvents' ]=  100
-_customInfo['globalTag' ]= "auto:run2_hlt_GRun"
+_customInfo['maxEvents' ]=  -1
+_customInfo['globalTag' ]= "101X_dataRun2_HLT_v7"
 _customInfo['inputFile' ]=  ['root://cms-xrd-global.cern.ch//store/data/Run2018C/SingleMuon/RAW/v1/000/320/065/00000/FA37880C-078E-E811-BF6E-02163E015C96.root']
 _customInfo['realData'  ]=  True
 from HLTrigger.Configuration.customizeHLTforALL import customizeHLTforAll
@@ -11689,3 +11701,14 @@ process = customizeHLTforCMSSW(process,"GRun")
 from HLTrigger.Configuration.Eras import modifyHLTforEras
 modifyHLTforEras(process)
 
+
+# ADD Ntupler
+
+from HLTrigger.Configuration.hltJetMETNtuple_new_cfi import *
+configureJetMetNtuple(process)
+#process.p_BadChargedCand_BadPFMuon = cms.Path(process.egmGsfElectronIDSequence *process.BadChargedCandidateFilter *process.BadPFMuonFilter)
+process.ntuple = cms.EndPath(process.hltJetMetNtuple)
+
+process.TFileService = cms.Service("TFileService",
+                                   fileName = cms.string("hltJetMetNtuple.root")
+)

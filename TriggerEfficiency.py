@@ -63,7 +63,7 @@ print "Input:",options.inputfile, "; Output:", outfilename
 
 
 #outfilename= 'SkimmedTree.root'
-skimmedTree = TChain("test/tree_")
+skimmedTree = TChain("hltJetMetNtuple/tree_")
 
 if isfarmout:
     infile = open(inputfilename)
@@ -131,10 +131,6 @@ def AnalyzeDataSet():
     npass = 0
     count = 0
     for ievent in range(NEntries):
-
-
-#    print "\n*****\nWARNING: *Test run* Processing 200 events only.\n*****\n"
-#    for ievent in range(200):
         if ievent%100==0: print "Processed "+str(ievent)+" of "+str(NEntries)+" events."
         skimmedTree.GetEntry(ievent)
         ## Get all relevant branches
@@ -148,8 +144,9 @@ def AnalyzeDataSet():
             trigResult                 = skimmedTree.__getattr__('trigResult')
             #filterName                 = skimmedTree.__getattr__('hlt_filterName')
             #filterResult               = skimmedTree.__getattr__('hlt_filterResult')
-
-            #caloMet                      = skimmedTree.__getattr__('CaloMET')
+            muonE                      = skimmedTree.__getattr__('muonE')
+	#    if len(muonE)!=0:continue
+            caloMet                      = skimmedTree.__getattr__('CaloMET')
 	    pfrawMET                     = skimmedTree.__getattr__('pfrawMET')
             #isData                     = skimmedTree.__getattr__('isData')
 
@@ -158,82 +155,17 @@ def AnalyzeDataSet():
             print "Corrupt file detected! Skipping 1 event."
             continue
 
-        trigstatus=False
-
-
-
-        trigger1=False; trigger2=False
-
-
-	#print "len of trigger status:  ",len(trigResult)
-
-	'''
-	for i in range(len(trigResult)):
-		#print "trigger status", bool(trigResult[i])
-		print "trigger name:   ", str(trigName[i])
-		print "trigger status:   ", bool(trigResult[i])
-        '''
- 
-	#print "Calo MET", caloMet,  "pfrawMET", pfrawMET
-	
+        trigstatus=False; trigger1=False; trigger2=False	
         trigger1 = CheckFilter(trigName, trigResult, 'HLT_PFMETTypeOne200_HBHE_BeamHaloCleaned_v')
 	trigger2 = CheckFilter(trigName, trigResult,'HLT_PFMET120_PFMHT120_IDTight_v')
         if trigger1:
 	    trigstatus=True
-	    count+=1
+	    #count+=1
 
+        MuonCond=False
+        if len(muonE)==0:
+            MuonCond=True
 
-	#if trigstatus: print "+++++++++++++++++++++++++++++"
-
-	'''
-        trigstatus_mu=False
-        trigstatus_e =False
-
-        for itrig in range(len(triglist_e)):
-            exec(triglist_e[itrig]+" = CheckFilter(trigName, trigResult, " + "'" + triglist_e[itrig] + "')")        #Runs the above commented-off code dynamically.
-            exec("if "+triglist_e[itrig]+": trigstatus_e=True")                       
-
-
-        for itrig in range(len(triglist_mu)):
-            exec(triglist_mu[itrig]+" = CheckFilter(trigName, trigResult, " + "'" + triglist_mu[itrig] + "')")        #Runs the above commented-off code dynamically.
-            exec("if "+triglist_mu[itrig]+": trigstatus_mu=True")
-
-        for itrig in range(len(triglist)):
-            exec(triglist[itrig]+" = CheckFilter(trigName, trigResult, " + "'" + triglist[itrig] + "')")        #Runs the above commented-off code dynamically.
-            exec("if "+triglist[itrig]+": trigstatus=True")
-        
-        filterstatus = False
-        filter1 = False; filter2 = False;filter3 = False;filter4 = False; filter5 = False; filter6 = False; filter7 =False; filter8 = False
-        ifilter_=0
-        filter1 = CheckFilter(filterName, filterResult, 'Flag_HBHENoiseFilter')
-        filter2 = CheckFilter(filterName, filterResult, 'Flag_globalSuperTightHalo2016Filter')
-        filter3 = CheckFilter(filterName, filterResult, 'Flag_eeBadScFilter')
-        filter4 = CheckFilter(filterName, filterResult, 'Flag_goodVertices')
-        filter5 = CheckFilter(filterName, filterResult, 'Flag_EcalDeadCellTriggerPrimitiveFilter')
-        filter6 = CheckFilter(filterName, filterResult, 'Flag_BadPFMuonFilter')
-        filter7 = CheckFilter(filterName, filterResult, 'Flag_BadChargedCandidateFilter')
-
-        filter8 = CheckFilter(filterName, filterResult, 'Flag_HBHENoiseIsoFilter')
-
-	filter9  =  hlt_filterbadChCandidate
-	filter10 =   hlt_filterbadPFMuon
-	filter11 =   hlt_filterbadGlobalMuon
-	filter12 =   hlt_filtercloneGlobalMuon
-
-
-        if not isData:
-	        filterstatus = True
-        if isData:
-        	filterstatus = filter1 & filter2 & filter3 & filter4 & filter5 & filter6 & filter7 & filter8 & filter9 & filter10 & filter11 & filter12
-        if filterstatus == False: continue
-
-        jetCond=False
-        muonCond=False
-        eleCond=False
-        ## Electron selection
-        # ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-        # ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-        '''
 
 # append variable to fill histograms
 
@@ -243,15 +175,15 @@ def AnalyzeDataSet():
             exec("allquantities."+quant+" = None")
 
 
-# without any selections
+# fill histogram
 	
-        if trigstatus:
+        if trigstatus and MuonCond:
             allquantities.num_pf = pfrawMET
-	 #   allquantities.num_calo = caloMet
+	    allquantities.num_calo = caloMet
 
-        if trigstatus or not trigstatus:
+        if MuonCond:
             allquantities.den_pf = pfrawMET
-	  #  allquantities.den_calo = caloMet
+	    allquantities.den_calo = caloMet
 	
 
 
@@ -259,19 +191,11 @@ def AnalyzeDataSet():
         allquantities.FillHisto()
 
     allquantities.WriteHisto()
-    print "Total passed events", count, "  outof ",NEntries
     print "ROOT file written to", outfilename
 
     print "Completed."
 
         # outTree.Fill()
-#here your main fuction end
-    # h_total_mcweight.Write()
-    # h_total.Write()
-    # samplepath.Write()
-    # outfile.Write()
-
-
 
 
 def CheckFilter(filterName, filterResult,filtercompare):

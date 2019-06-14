@@ -11620,11 +11620,11 @@ if 'PrescaleService' in process.__dict__:
 
 # limit the number of events to be processed
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32( 100 )
+    input = cms.untracked.int32(-1)
 )
 
 
-
+'''
 # add a single "keep *" output
 process.hltOutputFull = cms.OutputModule( "PoolOutputModule",
     fileName = cms.untracked.string( "hltoutput.root" ),
@@ -11633,10 +11633,21 @@ process.hltOutputFull = cms.OutputModule( "PoolOutputModule",
         dataTier = cms.untracked.string( 'RECO' ),
         filterName = cms.untracked.string( '' )
     ),
-    outputCommands = cms.untracked.vstring( 'keep *' )
+#    outputCommands = cms.untracked.vstring( 'keep *' )
+
+    outputCommands = cms.untracked.vstring( 'keep *')#,#'keep *_*_*_TEST',
+#        'keep edmTriggerResults_*_*_TEST',
+#        'keep triggerTriggerEvent_*_*_TEST',
+        #'keep *_hltMuons_*_*',
+        #'keep *_hltAK4PFJets_*_*',
+        #'keep *_TriggerResults_*_*',
+#        'keep *_hltMet_*_TEST',
+#        'keep *_hltPFMETProducer_*_TEST'
+#    )
+
 )
 process.FullOutput = cms.EndPath( process.hltOutputFull )
-
+'''
 
 # enable TrigReport, TimeReport and MultiThreading
 process.options = cms.untracked.PSet(
@@ -11649,7 +11660,7 @@ process.options = cms.untracked.PSet(
 # override the GlobalTag, connection string and pfnPrefix
 if 'GlobalTag' in process.__dict__:
     from Configuration.AlCa.GlobalTag import GlobalTag as customiseGlobalTag
-    process.GlobalTag = customiseGlobalTag(process.GlobalTag, globaltag = 'auto:run2_hlt_GRun')
+    process.GlobalTag = customiseGlobalTag(process.GlobalTag, globaltag = '101X_dataRun2_HLT_v7')
 
 if 'MessageLogger' in process.__dict__:
     process.MessageLogger.categories.append('TriggerSummaryProducerAOD')
@@ -11677,8 +11688,8 @@ _customInfo['globalTags'][False] = "auto:run2_mc_GRun"
 _customInfo['inputFiles']={}
 _customInfo['inputFiles'][True]  = "file:RelVal_Raw_GRun_DATA.root"
 _customInfo['inputFiles'][False] = "file:RelVal_Raw_GRun_MC.root"
-_customInfo['maxEvents' ]=  10
-_customInfo['globalTag' ]= "auto:run2_hlt_GRun"
+_customInfo['maxEvents' ]=  -1
+_customInfo['globalTag' ]= "101X_dataRun2_HLT_v7"
 _customInfo['inputFile' ]=  ['root://cms-xrd-global.cern.ch//store/data/Run2018C/SingleMuon/RAW/v1/000/320/065/00000/FA37880C-078E-E811-BF6E-02163E015C96.root']
 _customInfo['realData'  ]=  True
 from HLTrigger.Configuration.customizeHLTforALL import customizeHLTforAll
@@ -11691,3 +11702,15 @@ process = customizeHLTforCMSSW(process,"GRun")
 from HLTrigger.Configuration.Eras import modifyHLTforEras
 modifyHLTforEras(process)
 
+
+
+# ADD Ntupler
+
+from HLTrigger.Configuration.hltJetMETNtuple_new_cfi import *
+configureJetMetNtuple(process)
+#process.p_BadChargedCand_BadPFMuon = cms.Path(process.egmGsfElectronIDSequence *process.BadChargedCandidateFilter *process.BadPFMuonFilter)
+process.ntuple = cms.EndPath(process.hltJetMetNtuple)
+
+process.TFileService = cms.Service("TFileService",
+                                   fileName = cms.string("hltJetMetNtuple.root")
+)
