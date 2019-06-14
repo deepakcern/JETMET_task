@@ -2,6 +2,17 @@
 
 
 ## Setup the framework
+```
+cmsrel CMSSW_10_1_11_patch1
+cd CMSSW_10_1_11_patch1/src
+cmsenv
+git cms-addpkg HLTrigger/Configuration
+
+# Dependencies and Compilation
+git cms-checkdeps -A -a
+scram b -j 8
+cd HLTrigger/Configuration/test
+```
 
 ```
 hltGetConfiguration /online/collisions/2018/2e34/v3.6/HLT/V4 --path HLTriggerFirstPath,HLT_PFMET120_PFMHT120_IDTight_v20,HLT_PFMETTypeOne200_HBHE_BeamHaloCleaned_v9,HLTriggerFinalPath,HLTAnalyzerEndpath --input root://cms-xrd-global.cern.ch//store/data/Run2018C/SingleMuon/RAW/v1/000/320/065/00000/FA37880C-078E-E811-BF6E-02163E015C96.root --full --offline --data --prescale none --output none --process TEST --globaltag 101X_dataRun2_HLT_v7 --setup /dev/CMSSW_10_1_0/GRun > hlt.py
