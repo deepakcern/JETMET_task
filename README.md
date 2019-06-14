@@ -9,7 +9,7 @@ hltGetConfiguration /online/collisions/2018/2e34/v3.6/HLT/V4 --path HLTriggerFir
 
 
 ## Removing Filter from the path
- removed `process.HLTHBHENoiseCleanerSequence` from the path. Changed input in `process.hltMetClean`
+ removed `process.HLTHBHENoiseCleanerSequence` from the path [HLT_PFMETTypeOne200_HBHE_BeamHaloCleaned_v9, HLT_PFMET120_PFMHT120_IDTight_v20]. Changed input in `process.hltMetClean`
  
  
  ## Making ntuples
