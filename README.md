@@ -25,7 +25,7 @@ hltGetConfiguration /online/collisions/2018/2e34/v3.6/HLT/V4 --path HLTriggerFir
  
  ## Making ntuples
  
- Added following line in the `hlt.py` file
+ Added following line in the `hlt_path_withFilter.py` file
  
  ```
  from HLTrigger.Configuration.hltJetMETNtuple_new_cfi import *
