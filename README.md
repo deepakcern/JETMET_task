@@ -32,8 +32,8 @@ process.TFileService = cms.Service("TFileService",
  ```
  
  ## Plotting Trigger Efficiency
- 
+ ```
  python TriggerEfficiency.py -i inputfiles.txt -D .
  python EfficiencyPlotter.py 
- 
+ ```
  
